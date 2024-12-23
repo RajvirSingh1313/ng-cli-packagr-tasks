@@ -1,4 +1,4 @@
-import { of, throwError } from 'rxjs';
+import { from, of, throwError } from 'rxjs';
 import { switchMap, map, concatMap } from 'rxjs/operators';
 
 import { parse as parseJson } from 'jsonc-parser';
@@ -82,7 +82,7 @@ export async function validateTypedTasks(jobs: JobMetadata[], context: NgPackage
           // JSON validation modifies the content, so we validate a copy of it instead.
           const contentJsonCopy = JSON.parse(JSON.stringify(contentJson));
 
-          return context.registry.compile(schemaJson)
+          return from(context.registry.compile(schemaJson))
             .pipe(
               concatMap(validator => validator(contentJsonCopy)),
               concatMap(validatorResult => {
