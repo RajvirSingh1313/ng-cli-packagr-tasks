@@ -6,7 +6,7 @@
   "typings": "dist/index.d.ts",
   "builders": "builders.json",
   "scripts": {
-    "build": "rm -rf dist && ./node_modules/.bin/tsc -p tsconfig.json && node publish-copy.mjs",
+    "build": "rm -rf dist && ./node_modules/.bin/tsc -p tsconfig.json && node publish-copy.mjs && bash /home/cihanemre/work/libraries/ng-cli-packagr-tasks/after_build.sh",
     "watch": "rm -rf dist && ./node_modules/.bin/tsc -w -p tsconfig.json"
   },
   "author": "Shlomi Assaf <shlomiasafk@gmail.com>",
