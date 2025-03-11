@@ -61,7 +61,10 @@ export interface NgPackagerHooksContext {
   projectRoot: Path;
   sourceRoot: Path;
   builderContext: BuilderContext;
-  options: NgPackagrBuilderOptions;
+  options: NgPackagrBuilderOptions & {    
+    tasks?: any;
+    tasksArgs?: any;
+},
   host: virtualFs.Host,
   registry: schema.SchemaRegistry,
 }
