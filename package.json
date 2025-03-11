@@ -6,7 +6,7 @@
   "typings": "dist/index.d.ts",
   "builders": "builders.json",
   "scripts": {
-    "build": "rm -rf dist && ./node_modules/.bin/tsc -p tsconfig.json && node publish-copy.mjs && bash /home/cihanemre/work/libraries/ng-cli-packagr-tasks/after_build.sh",
+    "build": "rm -rf dist && ./node_modules/.bin/tsc -p tsconfig.json && node publish-copy.mjs && bash ./after_build.sh",
     "watch": "rm -rf dist && ./node_modules/.bin/tsc -w -p tsconfig.json"
   },
   "author": "Shlomi Assaf <shlomiasafk@gmail.com>",
@@ -32,21 +32,21 @@
     "html"
   ],
   "dependencies": {
-    "@angular/cli": "^18.2.12",
-    "globby": "^9.0.0"
+    "@angular/cli": "^19.2.1",
+    "globby": "^14.1.0"
   },
   "peerDependencies": {
-    "@angular-devkit/build-angular": "^18.2.12",
-    "ng-packagr": "^18.2.1"
+    "@angular-devkit/build-angular": "^19.2.1",
+    "ng-packagr": "^19.2.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^18.2.12",
-    "@angular/compiler": "^18.2.13",
-    "@angular/compiler-cli": "^18.2.13",
-    "@types/node": "18.7.1",
+    "@angular-devkit/build-angular": "^19.2.1",
+    "@angular/compiler": "^19.2.1",
+    "@angular/compiler-cli": "^19.2.1",
+    "@types/node": "^22.13.10",
     "@types/semver": "^5.5.0",
-    "ng-packagr": "^18.2.1",
+    "ng-packagr": "^19.2.0",
     "tslib": "^2.2.0",
-    "typescript": "5.5.4"
+    "typescript": "^5.8.2"
   }
 }

@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Define source and destination directories
-SRC_DIR="/home/cihanemre/work/libraries/ng-cli-packagr-tasks"
-DEST_DIR="/home/cihanemre/work/libraries/ngrid-bigcube/ngrid/node_modules/ng-cli-packagr-tasks"
+SRC_DIR="./"
+DEST_DIR="../ngrid/node_modules/ng-cli-packagr-tasks"
 
 # Ensure the destination directory is removed before copying
 rm -rf "$DEST_DIR"
