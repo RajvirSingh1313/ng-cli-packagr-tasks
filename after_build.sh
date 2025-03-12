@@ -1,8 +1,8 @@
 #!/bin/bash
-
+source ./.env
 # Define source and destination directories
 SRC_DIR="./"
-DEST_DIR="../ngrid/node_modules/ng-cli-packagr-tasks"
+DEST_DIR="${RELATIVE_NGRID_PATH:-../ngrid/node_modules/ng-cli-packagr-tasks}"
 
 # Ensure the destination directory is removed before copying
 rm -rf "$DEST_DIR"
@@ -19,5 +19,5 @@ rsync -av --progress "$SRC_DIR/" "$DEST_DIR" \
   --exclude="yarn.lock" \
   --exclude=".DS_Store"
 
-# Output completion message
+# # Output completion message
 echo "Copy completed successfully!"
