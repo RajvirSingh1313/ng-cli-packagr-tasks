@@ -58,7 +58,7 @@ function readTsConfig(configFile: string): ts.ParsedCommandLine {
  */
 async function initTsConfig(context: TaskContext<[import ('@angular/compiler-cli').ParsedConfiguration]>) {
   const globalContext = context.context();
-  const nodeLib = globalContext.options.tasks.data.nodeLib || {};
+  const nodeLib = globalContext.options['tasks'].data.nodeLib || {};
 
   const tsConfigPath = (nodeLib && nodeLib.tsConfig) || globalContext.options.tsConfig;
   const parsedTsConfig = readTsConfig(tsConfigPath);

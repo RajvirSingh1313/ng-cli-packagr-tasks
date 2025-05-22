@@ -69,7 +69,7 @@ export function getTaskDataInput<T>(jobMeta: JobMetadata, tasks: NgPackagrBuilde
 }
 
 export async function validateTypedTasks(jobs: JobMetadata[], context: NgPackagerHooksContext) {
-  const tasks: NgPackagrBuilderTaskOptions<NgPackagrBuilderTaskSchema> = context.options.tasks;
+  const tasks: NgPackagrBuilderTaskOptions<NgPackagrBuilderTaskSchema> = context.options['tasks'];
   const allHooksPromises: Promise<any>[] = [];
 
   const promises = jobs.map( taskMeta => {

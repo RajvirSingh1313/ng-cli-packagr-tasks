@@ -29,7 +29,7 @@ const DEFAULT_TSCONFIG_OPTIONS = {
 
 async function buildRegistry(globalTasksContext: NgPackagerHooksContext): Promise<HookRegistry> {
   const root = globalTasksContext.root;
-  const { tasks } = globalTasksContext.options;
+  const tasks = globalTasksContext.options['tasks'];
   const transformerPath = tasks.config;
   const tPath = devKitCore.getSystemPath(devKitCore.resolve(root, devKitCore.normalize(transformerPath)) as any);
   if (FS.existsSync(tPath)) {

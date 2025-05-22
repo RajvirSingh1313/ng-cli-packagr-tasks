@@ -1,12 +1,13 @@
 import * as Path from 'path';
 import * as FS from 'fs';
 
-import * as globby from 'globby';
 import { AssetPattern } from '@angular-devkit/build-angular';
 import { normalizeAssetPatterns } from '@angular-devkit/build-angular/src/utils/normalize-asset-patterns';
 import * as log from 'ng-packagr/lib/utils/log';
 
 import { EntryPointTaskContext, Job } from '../build';
+import { AssetPatternClass } from '@angular-devkit/build-angular/src/builders/browser/schema';
+import { globbySync, Options } from 'globby';
 
 declare module '../build/hooks' {
   interface NgPackagrBuilderTaskSchema {
@@ -16,11 +17,14 @@ declare module '../build/hooks' {
   }
 }
 
-declare module '@angular-devkit/build-angular/src/builders/browser/schema.d' {
-  interface AssetPatternClass {
+declare function newNormalizeAssetPatterns(assetPatterns: AssetPattern[], workspaceRoot: string, projectRoot: string, projectSourceRoot: string | undefined): (NewAssetPatternClass & {
+  output: string;
+})[];
+
+export interface NewAssetPatternClass extends AssetPatternClass {
     explicitFileName?: string;
   }
-}
+
 
 export interface CopyPattern {
   context: string;
@@ -33,7 +37,7 @@ export interface CopyPattern {
   };
 }
 
-function buildCopyPatterns(root: string, assets: ReturnType< typeof normalizeAssetPatterns>): CopyPattern[] {
+function buildCopyPatterns(root: string, assets: ReturnType< typeof newNormalizeAssetPatterns>): CopyPattern[] {
   return assets.map( asset => {
 
     // Resolve input paths relative to workspace root and add slash at the end.
@@ -51,7 +55,7 @@ function buildCopyPatterns(root: string, assets: ReturnType< typeof normalizeAss
       // Now we remove starting slash to make Webpack place it from the output root.
       to: asset.output.replace(/^\//, ''),
       ignore: asset.ignore,
-      explicitFileName: asset.explicitFileName,
+      explicitFileName: asset['explicitFileName'],
       from: {
         glob: asset.glob,
         dot: true,
@@ -69,7 +73,7 @@ function createCopyPatterns(assetPatterns: AssetPattern[], root: string, project
         p.input = projectRoot;
       }
       return p;
-    }),
+    }) as NewAssetPatternClass[],
     root,
     projectRoot,
     maybeSourceRoot,
@@ -78,15 +82,15 @@ function createCopyPatterns(assetPatterns: AssetPattern[], root: string, project
   return buildCopyPatterns(root, assets);
 }
 
-async function getGlobEntries(copyPattern: CopyPattern, copyOptions: globby.GlobbyOptions) {
+async function getGlobEntries(copyPattern: CopyPattern, copyOptions: Options) {
   const fullPattern = copyPattern.context + copyPattern.from.glob;
   const opts = { ...copyOptions, dot: copyPattern.from.dot };
 
-  return globby(fullPattern, opts);
+  return globbySync(fullPattern, opts);
 }
 
 async function executeCopyPattern(copyPattern: CopyPattern,
-                                  copyOptions: globby.GlobbyOptions,
+                                  copyOptions: Options,
                                   root: string,
                                   onCopy?: (from: string, to: string) => void) {
   const entries = await getGlobEntries(copyPattern, copyOptions);
@@ -120,7 +124,7 @@ async function executeCopyPattern(copyPattern: CopyPattern,
 
 async function executeCopyPatterns(copyPatterns: CopyPattern[],
                                    root: string,
-                                   copyOptions?: globby.GlobbyOptions,
+                                   copyOptions?: Options,
                                    onCopy?: (pattern: CopyPattern, from: string, to: string) => void) {
   const opts = copyOptions ? { ...copyOptions } : {};
   for (const copyPattern of copyPatterns) {

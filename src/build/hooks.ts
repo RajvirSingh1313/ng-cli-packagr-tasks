@@ -61,7 +61,10 @@ export interface NgPackagerHooksContext {
   projectRoot: Path;
   sourceRoot: Path;
   builderContext: BuilderContext;
-  options: NgPackagrBuilderOptions;
+  options: NgPackagrBuilderOptions & {    
+    tasks?: any;
+    tasksArgs?: any;
+},
   host: virtualFs.Host,
   registry: schema.SchemaRegistry,
 }
@@ -102,7 +105,7 @@ export type NgPackagrBuilderOptionsWithTasks<T extends NgPackagrBuilderTaskSchem
   = NgPackagrBuilderOptions & { tasks: NgPackagrBuilderTaskOptions<T> };
 
   declare module '@angular-devkit/build-angular/src/builders/ng-packagr/schema.d' {
-    interface Schema {
+    interface NewSchema extends Schema {
     tasks?: NgPackagrBuilderTaskOptions;
     tasksArgs?: string;
   }
