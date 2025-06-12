@@ -2,19 +2,19 @@
  * Example: Update tsconfig settings before compilation in secondary entry points.
  */
 
-import { NgPackagerHooks, NgPackagerHooksContext } from 'ng-cli-packagr-tasks';
-import { isEntryPoint } from 'ng-packagr/lib/ng-v5/nodes';
+import { NgPackagerHooks, NgPackagerHooksContext } from "ng-cli-packager-tasks";
+import { isEntryPoint } from "ng-packagr/lib/ng-v5/nodes";
 
-module.exports = function(ctx: NgPackagerHooksContext) {
+module.exports = function (ctx: NgPackagerHooksContext) {
   const hooks: NgPackagerHooks = {
     initTsConfig: {
-      after: async taskContext => {
+      after: async (taskContext) => {
         for (const entry of taskContext.graph.entries()) {
           if (isEntryPoint(entry)) {
             if (entry.data.entryPoint.isSecondaryEntryPoint) {
               // UPDATE VALUES IN TSCONFIG:
               const tsConfig = entry.data.tsConfig;
-              tsConfig.options.noImplicitAny = true
+              tsConfig.options.noImplicitAny = true;
 
               // OR REPLACE IT ENTIRELY:
               entry.data.tsConfig = tsConfig;
@@ -25,8 +25,8 @@ module.exports = function(ctx: NgPackagerHooksContext) {
             }
           }
         }
-      }
+      },
     },
   };
   return hooks;
-}
+};

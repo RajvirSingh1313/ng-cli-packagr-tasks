@@ -5,7 +5,7 @@ In this example we are using 2 built-in tasks:
 - copy-file
 - bump
 
-The `copy-file` tasks will copy files based on instructions in the `angular.json` in the same format as `assets` in browser builds.  
+The `copy-file` tasks will copy files based on instructions in the `angular.json` in the same format as `assets` in browser builds.
 Data is set in `tasks.data.copyFile` (for the `copy-file` task)
 
 > The json structure is validated and will throw if invalid.
@@ -18,7 +18,7 @@ tell the task when to run and when not to run (no cli argument).
 ```json
 "architect": {
   "build": {
-    "builder": "ng-cli-packagr-tasks:build",
+    "builder": "ng-cli-packager-tasks:build",
     "options": {
       "tsConfig": "tsconfig.lib.json",
       "project": "ng-package.json",
@@ -53,6 +53,12 @@ ng build my-cli-project --prod --tasksArgs="bump=major"
 You can replace `major` with any release type available in the `semver` 2 spec:
 
 ```ts
-type ReleaseType = "major" | "premajor" | "minor" | "preminor" | "patch" | "prepatch" | "prerelease";
-
+type ReleaseType =
+  | "major"
+  | "premajor"
+  | "minor"
+  | "preminor"
+  | "patch"
+  | "prepatch"
+  | "prerelease";
 ```

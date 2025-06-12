@@ -10,7 +10,7 @@ using a provided TS configuration file (optional) or the project's tsconfig when
 ```json
 "architect": {
   "build": {
-    "builder": "ng-cli-packagr-tasks:build",
+    "builder": "ng-cli-packager-tasks:build",
     "options": {
       "tsConfig": "tsconfig.lib.json",
       "project": "ng-package.json",

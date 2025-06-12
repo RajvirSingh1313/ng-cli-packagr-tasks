@@ -24,7 +24,7 @@ Examples:
 
 ## How it works?
 
-For every package, `ng-packagr` will run several tasks through its' pipeline.  
+For every package, `ng-packagr` will run several tasks through its' pipeline.
 This library exposes an API to hook into the pipeline, each step in `ng-packagr` has a unique hook in the API.
 
 To alter the behavior each hook is split into 3 **phases** before and/or after each task and even replacing the built-in task completely.
@@ -32,7 +32,7 @@ To alter the behavior each hook is split into 3 **phases** before and/or after e
 For each hook/phase combination we can register a handler function (or an array of them) that will be called at that specific phase.
 The handler has access to a lot of data including `ng-packagr` API, architect API and more...
 
-There are 6 hooks: initTsConfig, analyseSources, entryPoint, compileNgc, writeBundles, writePackage.  
+There are 6 hooks: initTsConfig, analyseSources, entryPoint, compileNgc, writeBundles, writePackage.
 Because there are 3 phases for each hook (before, replace, after) there are 18 points of contact.
 
 The handlers are the most basic form of interaction, we can combine several handlers registered at specific points into a **Job**.
@@ -45,7 +45,7 @@ The library comes with some built-in **jobs** but you can easily create your own
 ## Install
 
 ```bash
-yarn add ng-cli-packagr-tasks -D
+yarn add ng-cli-packager-tasks -D
 ```
 
 ## Configuration
@@ -76,7 +76,7 @@ This will run the classic `ng-packagr` build process.
 ```json
 "architect": {
   "build": {
-    "builder": "ng-cli-packagr-tasks:build",
+    "builder": "ng-cli-packager-tasks:build",
     "options": {
       "tsConfig": "tsconfig.lib.json",
       "project": "ng-package.json",
@@ -95,7 +95,7 @@ This will run the classic `ng-packagr` build process.
 
 We've introduces 2 changes:
 
-- The **builder** has changed from `@angular-devkit/build-ng-packagr:build` to `ng-cli-packagr-tasks:build`.
+- The **builder** has changed from `@angular-devkit/build-ng-packagr:build` to `ng-cli-packager-tasks:build`.
 - The property **tasks** was added, pointing to a configuration module where we can tweak the process.
 
 > Note that `ng-packagr` itself does not change, only the architect builder.
@@ -130,6 +130,7 @@ export interface NgPackagerHooks {
   writePackage?: TaskPhases;
 }
 ```
+
 > The order which the tasks run reflect in the order of the properties above.
 
 For example, `compileNgc` will compile the library (TS -> JS, twice in 2 formats).
@@ -160,7 +161,9 @@ If you set a hook handler in **replace** the original task from `ng-packagr` **W
 Each phase accepts a single task or an array of tasks, for now let's define a task as a function that handles that hook:
 
 ```ts
-export type HookHandler<T> = (taskContext: T) => (BuildGraph | void | Promise<BuildGraph> | Promise<void>);
+export type HookHandler<T> = (
+  taskContext: T
+) => BuildGraph | void | Promise<BuildGraph> | Promise<void>;
 ```
 
 The hook is invoked with a `taskContext` parameter.
@@ -182,7 +185,9 @@ export interface TaskContext<T = any[]> {
    */
   graph: BuildGraph;
 
-  context<Z extends NgPackagrBuilderTaskSchema = TData>(): NgPackagerHooksContext<Z>;
+  context<
+    Z extends NgPackagrBuilderTaskSchema = TData
+  >(): NgPackagerHooksContext<Z>;
 
   taskArgs(key: string): string | undefined;
 }

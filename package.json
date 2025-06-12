@@ -1,5 +1,5 @@
 {
-  "name": "ng-cli-packagr-tasks",
+  "name": "ng-cli-packager-tasks",
   "version": "19.2.1",
   "description": "Angular CLI Build Architect for ng-packagr with custom tasks and workflows",
   "main": "dist/index.js",
@@ -11,13 +11,13 @@
   },
   "author": "Shlomi Assaf <shlomiasafk@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/shlomiassaf/ng-cli-packagr-tasks",
+  "homepage": "https://github.com/shlomiassaf/ng-cli-packager-tasks",
   "repository": {
     "type": "git",
-    "url": "https://github.com/angularclass/ng-cli-packagr-tasks.git"
+    "url": "https://github.com/angularclass/ng-cli-packager-tasks.git"
   },
   "bugs": {
-    "url": "https://github.com/shlomiassaf/ng-cli-packagr-tasks/issues"
+    "url": "https://github.com/shlomiassaf/ng-cli-packager-tasks/issues"
   },
   "keywords": [
     "angular",
